@@ -43,14 +43,14 @@ pipeline {
             steps {
                 input 'Does the staging environment look OK?'
                 milestone(1)
-                withCredentials([string(credentialsId: 'cloud_user_pw', variable: 'USERPASS')]) {
+                withCredentials([string(credentialsId: 'webserver_login1', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     sshPublisher(
                         failOnError: true,
                         publishers: [
                             sshPublisherDesc(
                                 configName: 'production',
                                 sshCredentials: [
-                                    username: 'cloud_user',
+                                    username: "$USERNAME",
                                     encryptedPassphrase: "$USERPASS"
                                 ], 
                                 transfers: [
